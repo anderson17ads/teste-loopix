@@ -19,4 +19,8 @@ $container['view'] = function ($container) {
 	return $view;
 };
 
-$app->get('/usuarios/{metodo}', App\Controllers\UsersController::class);
+$container['flash'] = function ($container) {
+    return new \Slim\Flash\Messages();
+};
+
+$app->map(['get', 'post', 'delete', 'put'], '/usuarios/{metodo}', App\Controllers\UsersController::class);

@@ -1,17 +1,30 @@
 body {
-	
+	color: #444;
 }
 
 .header {
-	text-align: center;
-	padding: 30px 0 30px 0;
+	padding: 20px 0 20px 0;
 	background-color: #fdd9d7;
 }
 
 .header img {
-	max-height: 100px;
+	display: inline-table;
+	width: 100px;
+}
+
+.header h2 {
+	margin: 0 0 0 20px;
+	display: inline-table;
 }
 
 .title {
-	background-color: #fdd9d7;
+	font-size: 30px;
+	margin: 10px 0;
+	padding-bottom: 5px;
+}
+
+.flash-alert {
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
 }

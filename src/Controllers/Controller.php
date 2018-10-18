@@ -23,6 +23,8 @@ abstract class Controller
 	}
 
 	public function __invoke($request, $response, $args) {
+		$this->view->offsetSet('flash', $this->flash);
+		
 		if (isset($args['metodo']) && method_exists($this, $args['metodo'])) {
 			return $this->{$args['metodo']}($request, $response, $args);
 		}
