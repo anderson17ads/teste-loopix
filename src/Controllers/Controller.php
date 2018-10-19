@@ -11,9 +11,6 @@ abstract class Controller
 	{
 		$this->container = $container;
 
-		$db = new Database;
-		$this->container['db'] = $db->conn;
-
 		$this->view->offsetSet('rand', rand(111111, 999999));
 	}
 

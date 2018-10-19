@@ -8,20 +8,13 @@ class UsersController extends Controller
 	protected $model = 'User';
 
 	/**
-	 * Recupera todos os usuários
+	 * Lista todos os usuários
 	 *
 	 * @return void
 	 */
 	public function listar($request, $response, $args)
 	{
-		// die(var_dump($this->User));
-		try {
-			$stmt = $this->db->query('SELECT * FROM usuarios ORDER BY id DESC');
-
-			$users = $stmt->fetchAll(\PDO::FETCH_OBJ);
-		} catch (\PDOException $e) {
-			die(print_r($e->getMessage()));
-		}
+		$users = $this->User->listar($request, $response, $args);
 
 		return $this->view->render($response, 'Users/listar.twig', [
 			'users' => $users
@@ -29,31 +22,17 @@ class UsersController extends Controller
 	}
 
 	/**
-	 * Adiciona um novo usuário
+	 * Adicionar um novo usuário
 	 *
 	 * @return void
 	 */
 	public function adicionar($request, $response, $args)
 	{
-		$retorno = '';
-
 		if ($request->isPost()) {
-			$nome  = $request->getParam('nome');
-			$senha = $request->getParam('senha');
-			$email = $request->getParam('email');
-
-			try {
-				$stmt = $this->db->prepare("INSERT INTO usuarios (nome, senha, email) VALUES (:nome, :senha, :email)");
-
-				$stmt->bindParam(':nome', $nome);
-				$stmt->bindParam(':senha', $senha);
-				$stmt->bindParam(':email', $email);
-
-				$stmt->execute();
-
+			if ($this->User->adicionar($request, $response, $args)) {
 				$this->flash->addMessage('Alert', 'Usuário inserido com sucesso!');
 				return $response->withRedirect('listar');
-			} catch (\PDOException $e) {
+			} else {
 				$this->flash->addMessage('Alert', 'Erro ao cadastrar usuário!');
 			}
 		}
@@ -62,39 +41,23 @@ class UsersController extends Controller
 	}
 
 	/**
-	 * Edita o usuário
+	 * Editar o usuário
 	 *
 	 * @return void
 	 */
 	public function editar($request, $response, $args)
 	{
-		$id = $request->getAttribute('id');
 
 		if ($request->isPut()) {
-			$nome  = $request->getParam('nome');
-			$senha = $request->getParam('senha');
-			$email = $request->getParam('email');
-
-			$sql = "UPDATE usuarios SET nome = :nome, senha = :senha, email = :email WHERE id = {$id}";
-
-			try {
-				$stmt = $this->db->prepare($sql);
-
-				$stmt->bindParam('nome', $nome);
-				$stmt->bindParam('senha', $senha);
-				$stmt->bindParam('email', $email);
-
-				$stmt->execute();
-
+			if ($this->User->editar($request, $response, $args)) {
 				$this->flash->addMessage('Alert', 'Usuário alterado com sucesso!');
 				return $response->withRedirect($request->getUri()->getBasePath() . '/usuarios/listar');
-			} catch (\PDOException $e) {
+			} else {
 				$this->flash->addMessage('Alert', 'Erro ao alterar usuário!');
 			}
 		}
 
-		$stmt = $this->db->query("SELECT * FROM usuarios WHERE id = {$id}");
-		$user = $stmt->fetch(\PDO::FETCH_OBJ);
+		$user = $this->User->pegar($request->getAttribute('id'));
 
 		return $this->view->render($response, 'Users/editar.twig', [
 			'user' => $user
@@ -102,22 +65,16 @@ class UsersController extends Controller
 	}
 
 	/**
-	 * Deleta o usuário
+	 * Deletar o usuário
 	 *
 	 * @return void
 	 */
 	public function deletar($request, $response, $args)
 	{
-		$id = $request->getAttribute('id');
-
-		if ($id && $request->isDelete()) {
-			try {
-				$stmt = $this->db->prepare("DELETE FROM usuarios WHERE id = {$id}");
-				
-				$stmt->execute();
-
+		if ($request->isDelete()) {
+			if ($this->User->deletar($request->getAttribute('id'))) {
 				$this->flash->addMessage('Alert', 'Usuário excluído com sucesso!');
-			} catch (\PDOException $e) {
+			} else {
 				$this->flash->addMessage('Alert', 'Erro ao excluir usuário!');
 			}
 		} else {

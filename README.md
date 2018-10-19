@@ -1,2 +1,5 @@
-# rest-api-v1
-Teste Loopix
+# Teste Loopix
+
+Para rodar projeto roda o composer install
+
+O banco está dentro da pasta src
