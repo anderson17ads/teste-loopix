@@ -65,11 +65,9 @@ class UsersController extends Controller
 	 */
 	public function editar($request, $response, $args)
 	{
-		$retorno  = '';
-
 		$id = $request->getAttribute('id');
 
-		if ($request->isPost()) {
+		if ($request->isPut()) {
 			$nome  = $request->getParam('nome');
 			$senha = $request->getParam('senha');
 			$email = $request->getParam('email');
@@ -77,8 +75,7 @@ class UsersController extends Controller
 			$sql = "UPDATE usuarios SET nome = :nome, senha = :senha, email = :email WHERE id = {$id}";
 
 			try {
-				$db = new Database;
-				$stmt = $db->conn->prepare($sql);
+				$stmt = $this->db->prepare($sql);
 
 				$stmt->bindParam('nome', $nome);
 				$stmt->bindParam('senha', $senha);
@@ -86,14 +83,18 @@ class UsersController extends Controller
 
 				$stmt->execute();
 
-				$retorno = 'Usuário alterado com sucesso!';
+				$this->flash->addMessage('Alert', 'Usuário alterado com sucesso!');
+				return $response->withRedirect($request->getUri()->getBasePath() . '/usuarios/listar');
 			} catch (\PDOException $e) {
-				$retorno = $e->getMessage();
+				$this->flash->addMessage('Alert', 'Erro ao alterar usuário!');
 			}
 		}
 
+		$stmt = $this->db->query("SELECT * FROM usuarios WHERE id = {$id}");
+		$user = $stmt->fetch(\PDO::FETCH_OBJ);
+
 		return $this->view->render($response, 'Users/editar.twig', [
-			'retorno' => $retorno
+			'user' => $user
 		]);
 	}
 

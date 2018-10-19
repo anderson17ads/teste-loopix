@@ -24,4 +24,4 @@ $container['flash'] = function ($container) {
 };
 
 $app->map(['get', 'post'], '/usuarios/{metodo}', App\Controllers\UsersController::class);
-$app->map(['delete', 'put'], '/usuarios/{metodo}/{id}', App\Controllers\UsersController::class);
+$app->map(['get', 'delete', 'put'], '/usuarios/{metodo}/{id}', App\Controllers\UsersController::class);
