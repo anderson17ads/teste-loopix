@@ -19,7 +19,7 @@ class User extends Model
 	public function listar($request, $response, $args)
 	{
 		try {
-			$stmt = $this->db->query('SELECT * FROM usuarios ORDER BY id DESC');
+			$stmt = $this->db->query("SELECT * FROM {$this->table} ORDER BY id DESC");
 
 			return $stmt->fetchAll(\PDO::FETCH_OBJ);
 		} catch (\PDOException $e) {
@@ -43,7 +43,7 @@ class User extends Model
 		$email = $request->getParam('email');
 
 		try {
-			$stmt = $this->db->prepare("INSERT INTO usuarios (nome, senha, email) VALUES (:nome, :senha, :email)");
+			$stmt = $this->db->prepare("INSERT INTO {$this->table} (nome, senha, email) VALUES (:nome, :senha, :email)");
 
 			$stmt->bindParam(':nome', $nome);
 			$stmt->bindParam(':senha', $senha);
@@ -73,7 +73,7 @@ class User extends Model
 		$senha = $request->getParam('senha');
 		$email = $request->getParam('email');
 
-		$sql = "UPDATE usuarios SET nome = :nome, senha = :senha, email = :email WHERE id = {$id}";
+		$sql = "UPDATE {$this->table} SET nome = :nome, senha = :senha, email = :email WHERE id = {$id}";
 
 		try {
 			$stmt = $this->db->prepare($sql);
@@ -101,7 +101,7 @@ class User extends Model
 	{
 		if (!is_null($id)) {
 			try {
-				$stmt = $this->db->prepare("DELETE FROM usuarios WHERE id = {$id}");
+				$stmt = $this->db->prepare("DELETE FROM {$this->table} WHERE id = {$id}");
 				$stmt->execute();
 
 				return true;
@@ -121,7 +121,7 @@ class User extends Model
 	public function pegar($id = null)
 	{
 		if (!is_null($id)) {
-			$stmt = $this->db->query("SELECT * FROM usuarios WHERE id = {$id}");
+			$stmt = $this->db->query("SELECT * FROM {$this->table} WHERE id = {$id}");
 			$user = $stmt->fetch(\PDO::FETCH_OBJ);
 
 			if ($user) return $user;
