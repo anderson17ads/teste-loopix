@@ -46,3 +46,8 @@ body {
 .actions form {
 	display: inline-block;
 }
+
+.list-unstyled {
+	margin-bottom: 0;
+	color: #721c24;
+}

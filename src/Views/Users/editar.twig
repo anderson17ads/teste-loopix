@@ -3,27 +3,30 @@
 {% block container %}
 	<h1 class="title">Alterar Usuário</h1>
 
-	<form method="POST" action="{{ base_url() }}/usuarios/editar/{{ user.id }}">
+	<form method="POST" action="{{ base_url() }}/usuarios/editar/{{ user.id }}" data-toggle="validator" role="form">
 		<input type="hidden" name="_METHOD" value="PUT"/>
 		
 		<div class="form-group row">
 			<label for="nome" class="col-sm-2 col-form-label">Nome</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" value="{{ user.nome }}" name="nome" id="nome" placeholder="Nome">
+				<input type="text" class="form-control" value="{{ user.nome }}" name="nome" id="nome" placeholder="Nome" required>
+				<div class="help-block with-errors"></div>
 			</div>
 		</div> 
 
 		<div class="form-group row">
 			<label for="email" class="col-sm-2 col-form-label">Email</label>
 			<div class="col-sm-10">
-				<input type="email" class="form-control" value="{{ user.email }}" name="email" id="email" placeholder="Email">
+				<input type="email" class="form-control" value="{{ user.email }}" name="email" id="email" placeholder="Email" required>
+				<div class="help-block with-errors"></div>
 			</div>
 		</div>
 
 		<div class="form-group row">
 			<label for="senha" class="col-sm-2 col-form-label">Password</label>
 			<div class="col-sm-10">
-				<input type="password" class="form-control" value="{{ user.senha }}" name="senha" id="senha" placeholder="Senha">
+				<input type="password" class="form-control" value="{{ user.senha }}" name="senha" id="senha" placeholder="Senha" required>
+				<div class="help-block with-errors"></div>
 			</div>
 		</div>
 	  
