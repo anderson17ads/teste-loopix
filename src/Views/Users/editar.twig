@@ -1,7 +1,7 @@
 {% extends 'Layout/default.twig' %}
 
 {% block container %}
-	<h1 class="title">Alterar Usuário</h1>
+	<h1 class="title">Editar Usuário</h1>
 
 	<form method="POST" action="{{ base_url() }}/usuarios/editar/{{ user.id }}" data-toggle="validator" role="form">
 		<input type="hidden" name="_METHOD" value="PUT"/>

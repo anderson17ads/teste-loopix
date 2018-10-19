@@ -5,6 +5,8 @@ use App\Controllers\Controller;
 
 class UsersController extends Controller
 {
+	protected $model = 'User';
+
 	/**
 	 * Recupera todos os usuários
 	 *
@@ -12,6 +14,7 @@ class UsersController extends Controller
 	 */
 	public function listar($request, $response, $args)
 	{
+		// die(var_dump($this->User));
 		try {
 			$stmt = $this->db->query('SELECT * FROM usuarios ORDER BY id DESC');
 

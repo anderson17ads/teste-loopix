@@ -23,7 +23,7 @@
 		      <td>{{user.email}}</td>
 		      <td>{{user.senha}}</td>
 		      <td class="actions">
-		      	<a class="btn btn-secondary" href="{{ base_url() }}/usuarios/editar/{{ user.id }}">Alterar</a>
+		      	<a class="btn btn-secondary" href="{{ base_url() }}/usuarios/editar/{{ user.id }}">Editar</a>
 		      	<form action="{{ base_url() }}/usuarios/deletar/{{ user.id }}" method="POST">
 		      		<input type="hidden" name="_METHOD" value="DELETE"/>
 		      		<input class="btn btn-danger" type="submit" value="Excluir">

@@ -27,8 +27,23 @@ abstract class Controller
 	public function __invoke($request, $response, $args) {
 		$this->view->offsetSet('flash', $this->flash);
 		
+		$this->loadModel();
+
 		if (isset($args['metodo']) && method_exists($this, $args['metodo'])) {
 			return $this->{$args['metodo']}($request, $response, $args);
 		}
+   	}
+
+   	/**
+   	 * Carrega o model da classe e exitir
+   	 *
+   	 * @return void
+   	 */
+   	private function loadModel()
+   	{
+   		if (isset($this->model) && !is_null($this->model)) {
+   			$class = "App\Model\\{$this->model}";
+   			$this->container[$this->model] = new $class;
+   		}
    	}
 }
