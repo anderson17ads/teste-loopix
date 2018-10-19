@@ -23,4 +23,5 @@ $container['flash'] = function ($container) {
     return new \Slim\Flash\Messages();
 };
 
-$app->map(['get', 'post', 'delete', 'put'], '/usuarios/{metodo}', App\Controllers\UsersController::class);
+$app->map(['get', 'post'], '/usuarios/{metodo}', App\Controllers\UsersController::class);
+$app->map(['delete', 'put'], '/usuarios/{metodo}/{id}', App\Controllers\UsersController::class);

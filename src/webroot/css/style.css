@@ -19,12 +19,30 @@ body {
 
 .title {
 	font-size: 30px;
-	margin: 10px 0;
+	margin: 20px 0;
 	padding-bottom: 5px;
+	display: inline-table;
 }
 
 .flash-alert {
 	padding: 10px;
 	text-align: center;
 	font-weight: bold;
+}
+
+.btn {
+	margin: 20px;
+}
+
+.actions {
+	text-align: center;
+}
+
+.actions .btn {
+	margin: 5px;
+}
+
+.actions .btn,
+.actions form {
+	display: inline-block;
 }
