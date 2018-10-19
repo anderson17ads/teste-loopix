@@ -19,9 +19,15 @@ $container['view'] = function ($container) {
 	return $view;
 };
 
+$container['HomeController'] = function($container) {
+    return new App\Controllers\HomeController($container);
+};
+
 $container['flash'] = function ($container) {
     return new \Slim\Flash\Messages();
 };
+
+$app->get('/', 'HomeController:index');
 
 $app->map(['get', 'post'], '/usuarios/{metodo}', App\Controllers\UsersController::class);
 $app->map(['get', 'delete', 'put'], '/usuarios/{metodo}/{id}', App\Controllers\UsersController::class);

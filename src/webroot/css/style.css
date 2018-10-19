@@ -51,3 +51,12 @@ body {
 	margin-bottom: 0;
 	color: #721c24;
 }
+
+.wellcome {
+	text-align: center;
+}
+
+.wellcome h3 {
+	margin: 50px 0 10px 0;
+	font-size: 40px;
+}
